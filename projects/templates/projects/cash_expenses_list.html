@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Расходы наличными</title>
+</head>
+<body>
+    <h1>Расходы наличными</h1>
+
+    <form method="get">
+        <label>Проект:
+            <select name="project">
+                <option value="">Все</option>
+                {% for project in projects %}
+                    <option value="{{ project.id }}" {% if selected_project == project.id|stringformat:"s" %}selected{% endif %}>
+                        {{ project.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Лицо:
+            <select name="person">
+                <option value="">Все</option>
+                {% for person in persons %}
+                    <option value="{{ person.id }}" {% if selected_person == person.id|stringformat:"s" %}selected{% endif %}>
+                        {{ person.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Дата от:
+            <input type="date" name="date_from" value="{{ date_from }}">
+        </label>
+        <label>до:
+            <input type="date" name="date_to" value="{{ date_to }}">
+        </label>
+        <button type="submit">Фильтровать</button>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Проект</th>
+            <th>Лицо</th>
+            <th>Сумма</th>
+            <th>Тип</th>
+            <th>Дата</th>
+            <th>Комментарий</th>
+        </tr>
+        {% for exp in expenses %}
+        <tr>
+            <td>{{ exp.project.name }}</td>
+            <td>{{ exp.person.name }}</td>
+            <td>{{ exp.amount }}</td>
+            <td>{{ exp.get_expense_type_display }}</td>
+            <td>{{ exp.date }}</td>
+            <td>{{ exp.comment }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
