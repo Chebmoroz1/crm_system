@@ -1,3 +1,4 @@
+# ✅ Проверка GitHub push
 from django.contrib import admin
 from .models import Project, CashExpense, Person, Attachment, Note, ActivityLog, Organization
 
